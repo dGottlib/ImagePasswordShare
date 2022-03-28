@@ -1,0 +1,32 @@
+﻿@using Homework51_ImageSharePassword.Data;
+@using Homework51_ImageSharePassword.Web.Models;
+@model ViewImageViewModel;
+
+@if (Model.Image.HasAccess == true)
+{
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <img src="/uploads/@Model.Image.ImagePath" style="width: 800px;" />
+            <br />
+            <h3>Views: @Model.Image.Views</h3>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6 offset-md-3 jumbotron">
+            @if (Model.Message != null)
+            {
+                <h3 class="alert-danger">@Model.Message</h3>
+            }
+            <h4>Please enter the password for this image:</h4>
+            <form method="post" action="/home/viewimage">
+                <input type="hidden" name="id" value="@Model.Image.Id" />
+                <input type="password" class="form-control" placeholder="Password" name="password" />
+                <br />
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+}
